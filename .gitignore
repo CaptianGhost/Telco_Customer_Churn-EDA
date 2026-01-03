@@ -11,3 +11,6 @@ env/
 
 # VS Code
 .vscode/
+
+# Extra
+Telco_Customer_Churn-ML.ipynb
