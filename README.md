@@ -1,90 +1,152 @@
-# Customer Churn Data Analysis
+# Customer Churn Analysis & Predictive Modeling (v2.0)
 
-This project focuses on analyzing a **Telco Customer Churn dataset** to understand customer behavior and identify factors that contribute to customer attrition.
+This project analyzes a **Telco Customer Churn dataset** to understand customer behavior **and build a baseline predictive model** for identifying customers at risk of churning.
 
-The main goal of this project is to practice **data cleaning, exploratory data analysis (EDA), business-driven insight generation** using a real-world business dataset.
-
----
-
-## 📂 Dataset
-*Telco Customer Churn dataset* (Kaggle)
+The project follows a **business-first, step-by-step workflow**, starting from data understanding and EDA, and progressing to an interpretable **Logistic Regression model** with threshold tuning and proper evaluation.
 
 ---
 
-## 🔧 Technologies Used
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
+## Dataset
+**Telco Customer Churn Dataset** ([_Kaggle_](https://www.kaggle.com/datasets/blastchar/telco-customer-churn))
 
 ---
 
-## 🔍 Project Scope & Workflow
+## Technologies Used
+- Python  
+- Pandas, NumPy  
+- Matplotlib, Seaborn  
+- Scikit-learn  
 
-This project focuses on **understanding the data before modeling**, following a structured EDA approach:
+---
+
+## Project Scope & Workflow
+
+This project was developed iteratively, following real-world data science practices.
 
 ### 1️⃣ Data Understanding & Cleaning
-- Loaded and inspected the dataset structure
-- Identified data types, missing values, and inconsistencies
-- Cleaned and prepared data for analysis without over-engineering unused columns
+- Inspected dataset structure, data types, and distributions
+- Identified and handled inconsistencies and categorical encodings
+- Prepared data for both EDA and modeling without unnecessary over-engineering
+
+---
 
 ### 2️⃣ Exploratory Data Analysis (EDA)
-Analyzed churn behavior across key business dimensions:
+Churn behavior was analyzed across key business dimensions:
 - Customer tenure
 - Contract type
 - Monthly charges
 - Payment methods
 - Senior citizen status
 
-### 3️⃣ Visualization & Interpretation
-- Visualized distributions and category comparisons
-- Focused on clarity and interpretability rather than excessive plots
-- Linked observed patterns to real-world business implications
+EDA focused on **why customers churn**, not just what correlates with churn.
 
 ---
 
-## 📊 Key Insights
-- **26.5%** of customers have churned, which implies a severe customer retention issue.
-- The average tenure of customers who churn is decidedly shorter, implying that the critical phase when the customer might ‘**churn**’ occurs in the initial stages of customer life.
-- The rate of churn is significantly higher for **Month-to-Month** than for any other form of contract. Long-term contracts confer better client retention.
-- Customers who churn generally have **higher monthly charges**, which may indicate pricing or perceived value issues.
-- People using **Electronic check** payments have been known to churn at a rate higher than those who use automatic payments.
-- The churn rate for senior citizens is high compared to their overall number, which means that senior customers represent a vulnerable market segment.
+### 3️⃣ Feature Engineering
+Simple, interpretable features were created:
+- `long_contract`: Binary feature indicating long-term contracts (1 or 2 years)
+- Selected numerical drivers:
+  - Tenure
+  - MonthlyCharges
+
+The goal was **interpretability over complexity**.
 
 ---
 
-## 🧠 Business Interpretation
+### 4️⃣ Baseline Predictive Modeling
+A **Logistic Regression** model was built using a Scikit-learn pipeline:
+- Feature scaling with `StandardScaler`
+- Logistic Regression with `liblinear` solver
 
-The analysis suggests that churn is influenced by a combination of:
+This provided a transparent and explainable baseline model.
+
+---
+
+### 5️⃣ Model Evaluation (Default Threshold = 0.50)
+Initial evaluation showed:
+- Strong performance on non-churn customers
+- **Low recall for churners**, meaning many at-risk customers were missed
+
+This behavior is expected in **imbalanced churn datasets**, where non-churners are the majority.
+
+---
+
+### 6️⃣ Threshold Tuning (Business-Driven)
+To better align with business goals, the decision threshold was lowered to **0.30**:
+- Improved churn recall significantly
+- Accepted higher false positives to avoid missing potential churners
+
+This reflects a realistic retention strategy where **false alarms are cheaper than losing customers**.
+
+---
+
+### 7️⃣ Advanced Evaluation Metrics
+The model was evaluated using:
+- **Confusion Matrix**
+- **Classification Report**
+- **Precision–Recall Curve**
+- **Average Precision (AP) Score**
+
+Precision–Recall analysis was prioritized over accuracy and ROC-AUC due to class imbalance.
+
+---
+
+## Key Results (Threshold = 0.30)
+
+- **Churn Recall:** ~75%  
+- **Churn Precision:** ~51%  
+- The model successfully identifies most customers at risk of churn
+- False positives are acceptable in exchange for higher churn capture
+
+---
+
+## Key Insights
+- **26.5%** of customers churned, indicating a serious retention challenge
+- Churn is most likely in the **early stages of customer tenure**
+- **Month-to-month contracts** have significantly higher churn rates
+- Customers with **higher monthly charges** churn more frequently
+- **Electronic check** users show elevated churn risk
+- Senior citizens represent a vulnerable churn segment
+
+---
+
+## Business Interpretation
+
+Churn is driven by a combination of:
 - Early customer experience
-- Pricing and value perception
-- Contract structure
+- Pricing and perceived value
+- Contract commitment
 - Payment convenience
 
-Retention strategies should therefore focus on:
-- Improving early-stage customer engagement
-- Encouraging long-term contracts through incentives
-- Reviewing pricing structures for high-risk customer segments
-- Promoting automatic payment methods to reduce friction
+**Recommended actions:**
+- Strengthen onboarding and early engagement
+- Incentivize long-term contracts
+- Review pricing for high-risk segments
+- Encourage automated payment methods
+- Use the churn model as an **early warning system**, not a final decision-maker
 
 ---
 
-## 📊 Skills Practiced
+## Skills Demonstrated
 - Data Cleaning & Preparation
 - Exploratory Data Analysis (EDA)
-- Business-oriented data interpretation
-- Data Visualization
-- Translating data insights into actionable recommendations
+- Feature Engineering
+- Logistic Regression Modeling
+- Threshold Optimization
+- Precision–Recall Evaluation
+- Business-oriented ML interpretation
 
 ---
 
-*This project is part of my learning journey in data analysis and machine learning.*
-*Future iterations may extend this analysis with predictive modeling as my skills progress.*
+## Project Status
+- **Version:** v2.0
+- Baseline model completed and evaluated
+- Designed for future extensions (class weighting, cost-sensitive learning, advanced models)
 
 ---
 
-### Special Note
-Any suggestions, feedback, or improvements are highly appreciated.
+*This project reflects a practical, business-driven approach to machine learning rather than a purely academic one.*
+
+Any feedback or suggestions are always welcome.
 
 — **Ghost**
